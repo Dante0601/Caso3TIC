@@ -1,0 +1,5 @@
+# Ignorar todos los archivos de texto
+*.txt
+
+# También es buena idea ignorar los compilados de Java
+*.class
