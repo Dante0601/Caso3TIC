@@ -21,13 +21,11 @@ public class Sensor extends Thread {
 
     @Override
     public void run() {
+        // Se crean los eventos como lo exige el documento
         for (int i = 1; i <= this.getNumEventos(); i++) {
             int randomNum = (int)(Math.random() * ns) + 1;
             Evento e = new Evento(getName() + "-" + i, randomNum);
-            while (buzonEntrada.estaLleno()) {
-                Thread.yield();
-            }
-            buzonEntrada.depositarDirecto(e);
+            buzonEntrada.depositarSemiactivo(e);
             System.out.println("Sensor " + getName() + ": Generó evento " + e.getId() + " dirigido al servidor " + e.getNumServer());
         }
         System.out.println("Sensor " + getName() + ": Ha terminado de generar todos sus eventos.");

@@ -2,6 +2,12 @@ import java.io.*;
 
 public class Main {
     public static void main(String[] args) throws Exception {
+        if (args.length < 1) {
+            System.out.println("Error: Por favor indique el nombre del archivo de configuración (sin el .txt).");
+            System.out.println();
+            return;
+        }
+
         BufferedReader br = new BufferedReader(new FileReader(args[0] + ".txt"));
         
         int ni = 0, base = 0, nc = 0, ns = 0, tam1 = 0, tam2 = 0;
@@ -22,6 +28,7 @@ public class Main {
         }
         br.close();
 
+        // Se crean los buzones y se inicializan todos los threads
         Buzon buzonEntrada = new Buzon(-1);
         Buzon buzonAlerta = new Buzon(-1);
         Buzon buzonClasificacion = new Buzon(tam1);
@@ -62,6 +69,7 @@ public class Main {
             servidores[i].start();
         }
 
+        // Se hace join para asegurar que todos los threads terminaron
         for (Sensor sensor : sensores) sensor.join();
         broker.join();
         admin.join();
@@ -72,5 +80,6 @@ public class Main {
         System.out.println("-------------------------------------------------");
         System.out.println("SIMULACIÓN TERMINADA: Todos los hilos han finalizado.");
         System.out.println("-------------------------------------------------");
+        System.out.println();
     }
 }

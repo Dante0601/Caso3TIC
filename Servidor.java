@@ -1,16 +1,18 @@
 public class Servidor extends Thread {
-    private Buzon buzonesServidores;
+    private Buzon buzonServidor;
 
-    public Servidor(String name, Buzon buzonesServidores) {
+    public Servidor(String name, Buzon buzonServidor) {
         super(name);
-        this.buzonesServidores = buzonesServidores;
+        this.buzonServidor = buzonServidor;
     }
 
     @Override
     public void run() {
+        // while true por que l;a condicion depende del evento
         while (true) {
             try {
-                Evento e = buzonesServidores.retirar();
+                Evento e = buzonServidor.retirarPasivoAll();
+                // se revisa si es el final y si no se hace el requerimiento del tiempo
                 if (e.esFin()) {
                     System.out.println("Servidor " + getName() + ": Recibió FIN. Terminando.");
                     break;
